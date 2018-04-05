@@ -14,5 +14,8 @@ urlpatterns = [
 	# users/logout/
 	url(r'^logout/$', views.logout_view, name='logout'),
 
+	# Registration page
+	# users/register/
+	url(r'^register/$', views.register, name='register'),
 
 ]
