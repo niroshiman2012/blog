@@ -1,6 +1,6 @@
 # blog
-Simple attempt at Django framework to build a basic blog.
+Simple attempt at Django framework to build a blog with basic functions.
 
-Features include adding title and post, and editing posts using forms module.
+
 
 
