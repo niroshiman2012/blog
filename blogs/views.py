@@ -30,7 +30,9 @@ def new_post(request):
 		# POST data submitted; process data
 		form = PostForm(request.POST)
 		if form.is_valid():
-			form.save()
+			new_post = form.save(commit=False)
+			new_post.owner = request.user
+			new_post.save()
 			return HttpResponseRedirect(reverse('blogs:index'))
 
 	context = {'form': form}
@@ -40,6 +42,8 @@ def new_post(request):
 def edit_post(request, post_id):
 	"""Page to edit post."""
 	post = BlogPost.objects.get(id=post_id)
+	if post.owner != request.user:
+		raise Http404
 
 	if request.method != 'POST':
 		# Initial request; pre-fill form with the current entry.
