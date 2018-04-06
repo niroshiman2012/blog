@@ -10,14 +10,18 @@ from .forms import PostForm
 def index(request):
 	"""Home page for blogs app, showing all blog posts."""
 	posts = BlogPost.objects.order_by('date_added')
-	context = {'posts': posts}
+	if request.user.is_authenticated():
+		can_add_post = True
+	else:
+		can_add_post = False
+	context = {'posts': posts, 'can_add_post': can_add_post}
 
 	return render(request, 'blogs/index.html', context)
 
 def post(request, post_id):
 	"""Detail page for post."""
 	post = BlogPost.objects.get(id=post_id)
-	context = {'post': post}
+	context = {'post': post,'user': request.user}
 	return render(request, 'blogs/post.html', context)
 
 @login_required

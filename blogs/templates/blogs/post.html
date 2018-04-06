@@ -11,11 +11,14 @@
 		<li>
 
 			<p>{{ post.text|linebreaks }}</p>
+			<p>Written by: {{ post.owner}}</p>
 			<p>{{ post.date_added|date:'M d, Y H:i' }}</p>
-
-			<p>
-			<a href="{% url 'blogs:edit_post' post.id %}">edit post</a>
-			</p>
+			
+			{% if post.owner == user %}
+				<p>
+				<a href="{% url 'blogs:edit_post' post.id %}">edit post</a>
+				</p>
+			{% endif %}
 		</li>
 	{% else %}
 		<li>
